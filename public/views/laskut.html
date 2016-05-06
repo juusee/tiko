@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-2">
+
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/tikoAngular/tyosuoritukset">Työsuoritukset</a></li>
+            <li role="presentation" class="active"><a href="/tikoAngular/laskut">Laskut</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiTyosuoritus">Uusi työsuoritus</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiAsiakas">Uusi asiakas</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiLasku">Uusi lasku</a></li>
+        </ul>
+
+    </div>
+
+    <div class="col-md-10">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Laskut</h3>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Laskunro</th>
+                        <th>Summa €</th>
+                        <th>Laskutuslisä €</th>
+                        <th>Viivästyskorko €</th>
+                        <th>Eräpäivä</th>
+                        <th>Maksupvm</th>
+                        <th>Mones muistutus</th>
+                        <th>Edellinen lasku</th>
+                    </tr>
+                    <tr ng-repeat="row in laskut | formatEmptyItems2d track by $index">
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+                        <td>{{row[2]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[4]}}</td>
+                        <td>{{row[5]}}</td>
+                        <td>{{row[6]}}</td>
+                        <td>{{row[7]}}</td>
+                        <td><form ng-submit="maksaLasku(row[0])"><button type="submit" class="btn btn-info">Maksa lasku</button></form></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <form ng-submit="tarkistaLaskut()">
+            <button type="submit" class="btn btn-default">tarkistaLaskut</button>
+            <p style="color:blue">{{tarkistaLaskutMessage}}</p>
+        </form>
+
+    </div>
+
+</div>
+
+

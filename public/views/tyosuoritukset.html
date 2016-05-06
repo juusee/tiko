@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="col-md-2">
+		<ul class="nav nav-pills nav-stacked">
+			<li role="presentation" class="active"><a href="/tikoAngular/tyosuoritukset">Työsuoritukset</a></li>
+			<li role="presentation"><a href="/tikoAngular/laskut">Laskut</a></li>
+			<li role="presentation"><a href="/tikoAngular/uusiTyosuoritus">Uusi työsuoritus</a></li>
+			<li role="presentation"><a href="/tikoAngular/uusiAsiakas">Uusi asiakas</a></li>
+			<li role="presentation"><a href="/tikoAngular/uusiLasku">Uusi lasku</a></li>
+		</ul>
+	</div>
+
+	<div class="col-md-10">
+		<table class="table table-bordered">
+			<tr>
+				<th>Työ nro</th>
+				<th>Tila</th>
+				<th>Hinta</th>
+				<th>Kaupunki</th>
+				<th>Postinumero</th>
+				<th>Katuosoite</th>
+				<th>Tyyppi</th>
+				<th>Aiempi työ</th>
+				<th>Asiakasnro</th>
+			</tr>
+			<tr ng-repeat="row in tyosuoritukset | formatEmptyItems2d track by $index">
+				<td ng-repeat="col in row track by $index">{{col}}</td>
+				<td><a href="/tikoAngular/tyosuoritukset/{{row[0]}}"><button class="btn btn-info">Siirry työhön</button></a></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+

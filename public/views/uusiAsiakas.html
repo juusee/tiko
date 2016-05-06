@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/tikoAngular/tyosuoritukset">Työsuoritukset</a></li>
+            <li role="presentation"><a href="/tikoAngular/laskut">Laskut</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiTyosuoritus">Uusi työsuoritus</a></li>
+            <li role="presentation" class="active"><a href="/tikoAngular/uusiAsiakas">Uusi asiakas</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiLasku">Uusi lasku</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-10">
+        <form ng-submit="submitAsiakasForm()" name="uusi_asiakas_form" novalidate>
+            <div class="form-group">
+                <label for="enimi">Etunimi</label>
+                <input type="text" class="form-control" id="enimi" name="aEnimi" ng-model="uusiAsiakasForm.enimi" required="">
+                <div ng-show="uusi_asiakas_form.$submitted || uusi_asiakas_form.aEnimi.$touched">
+                    <span style="color:red" ng-show="uusi_asiakas_form.aEnimi.$error.required">Valitse etunimi</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="snimi">Sukunimi</label>
+                <input type="text" class="form-control" id="snimi" name="aSnimi" ng-model="uusiAsiakasForm.snimi" required="">
+                <div ng-show="uusi_asiakas_form.$submitted || uusi_asiakas_form.aSnimi.$touched">
+                    <span style="color:red" ng-show="uusi_asiakas_form.aSnimi.$error.required">Valitse sukunimi</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="kaupunki">Kaupunki</label>
+                <input type="text" class="form-control" id="kaupunki" name="aKaupunki" ng-model="uusiAsiakasForm.kaupunki" required="">
+                <div ng-show="uusi_asiakas_form.$submitted || uusi_asiakas_form.aKaupunki.$touched">
+                    <span style="color:red" ng-show="uusi_asiakas_form.aKaupunki.$error.required">Valitse kaupunki</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="postinumero">Postinumero</label>
+                <input type="number" class="form-control" id="postinumero" name="aPostinumero" ng-model="uusiAsiakasForm.postinumero" required="">
+                <div ng-show="uusi_asiakas_form.$submitted || uusi_asiakas_form.aPostinumero.$touched">
+                    <span style="color:red" ng-show="uusi_asiakas_form.aPostinumero.$error.required">Valitse postinumero</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="katuosoite">Katuosoite</label>
+                <input type="text" class="form-control" id="katuosoite" name="aKatuosoite" ng-model="uusiAsiakasForm.katuosoite" required="">
+                <div ng-show="uusi_asiakas_form.$submitted || uusi_asiakas_form.aKatuosoite.$touched">
+                    <span style="color:red" ng-show="uusi_asiakas_form.aKatuosoite.$error.required">Valitse katuosoite</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">Luo asiakas</button>
+            <p style="color:blue">{{uusiAsiakasFormMessage}}</p>
+        </form>
+    </div>
+</div>

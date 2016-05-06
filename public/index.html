@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base href="/tikoAngular/">
+    <title>Title</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+
+
+    <!-- ANGULAR CUSTOM -->
+    <script src="/tikoAngular/public/js/app.js"></script>
+    <script src="/tikoAngular/public/js/appRoutes.js"></script>
+    <script src="/tikoAngular/public/js/filters/filters.js"></script>
+    <script src="/tikoAngular/public/js/controllers/tyosuorituksetController.js"></script>
+    <script src="/tikoAngular/public/js/controllers/laskutController.js"></script>
+    <script src="/tikoAngular/public/js/controllers/tyosuoritusController.js"></script>
+    <script src="/tikoAngular/public/js/controllers/uusiTyosuoritusController.js"></script>
+    <script src="/tikoAngular/public/js/controllers/uusiAsiakasController.js"></script>
+    <script src="/tikoAngular/public/js/controllers/uusiLaskuController.js"></script>
+
+</head>
+<body ng-app="tikoApp">
+<div class="navbar navbar-inverse"></div>
+<div class="container">
+
+    <div ng-view></div>
+
+</div>
+</body>
+</html>

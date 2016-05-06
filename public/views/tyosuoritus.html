@@ -1,0 +1,191 @@
+<div class="row">
+    <div class="col-md-2">
+
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active"><a href="/tikoAngular/tyosuoritukset">Työsuoritukset</a></li>
+            <li role="presentation"><a href="/tikoAngular/laskut">Laskut</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiTyosuoritus">Uusi työsuoritus</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiAsiakas">Uusi asiakas</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiLasku">Uusi lasku</a></li>
+        </ul>
+
+    </div>
+
+    <div class="col-md-10">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Työsuoritus</h3>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Työnro</th>
+                        <th>Tila</th>
+                        <th>Hinta (alv 0%) €</th>
+                        <th>Kaupunki</th>
+                        <th>Postinumero</th>
+                        <th>Katuosoite</th>
+                        <th>Tyyppi</th>
+                        <th>Aiempi työ</th>
+                        <th>Asiakasnro</th>
+                    </tr>
+                    <tr>
+                        <td ng-repeat="col in tyosuoritus | formatEmptyItems1d track by $index">{{col}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Asiakas</h3>
+                <table class="table table-bordered">
+                    <tr>
+                        <td ng-repeat="col in asiakas track by $index">{{col}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Käytetyt tarvikkeet</h3>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Nimi</th>
+                        <th>Määrä</th>
+                        <th>Alennus %</th>
+                        <th>Hinta (alv 0%) €</th>
+                        <th>Alv</th>
+                    </tr>
+                    <tr ng-repeat="row in kaytetytTarvikkeet track by $index">
+                        <td>{{row[2]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[4]}}</td>
+                        <td>{{getTarvikkeidenHinta(row)}}</td>
+                        <td>{{getTarvikeAlv(row[0])}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Tehty työ</h3>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Nimi</th>
+                        <th>Tunnit</th>
+                        <th>Alennus %</th>
+                        <th>Hinta (alv 0%) €</th>
+                        <th>Alv</th>
+                    </tr>
+                    <tr ng-repeat="row in tehdytTyot track by $index">
+                        <td>{{row[2]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[4]}}</td>
+                        <td>{{getToidenHinta(row)}}</td>
+                        <td>{{getTyoAlv(row[1])}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 40px" class="row">
+            <div class="col-md-6">
+                <div>
+                    <h3>Lisää tai muuta töitä</h3>
+                    <form ng-submit="submitTyoForm()" name="tyo_form" novalidate>
+                        <div class="form-group">
+                            <select class="form-control" id="tyoNimi" name="tyoNimi" ng-model="tyoForm.nimi" required="">
+                                <option ng-repeat="tyo in tyot track by $index" value="{{tyo[1]}}">{{tyo[1]}}</option>
+                            </select>
+                            <div ng-show="tyo_form.$submitted">
+                                <span style="color:red" ng-show="tyo_form.tyoNimi.$error.required">Valitse työ</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tyoTunnit">Tunnit</label>
+                            <input type="number" step="0.5" id="tyoTunnit" name="tyoTunnit" ng-model="tyoForm.tunnit" required="">
+                            <div ng-show="tyo_form.$submitted || tyo_form.tyoTunnit.$touched">
+                                <span style="color:red" ng-show="tyo_form.tyoTunnit.$error.required">Valitse tunnit</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tyoAlennus">Alennus</label>
+                            <input type="number" min="0" max="100" step="1" id="tyoAlennus" name="tyoAlennus" ng-model="tyoForm.alennus" required="">
+                            <div ng-show="tyo_form.$submitted || tyo_form.tyoAlennus.$touched">
+                                <span style="color:red" ng-show="tyo_form.tyoAlennus.$error.required">Valitse alennus</span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-default">Lisää työ</button>
+                        <p style="color:blue">{{tyoFormMessage}}</p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <form ng-submit="submitTarvikeForm()" name="tarvike_form" novalidate>
+                    <h3>Lisää tai muuta tarvikkeita</h3>
+
+                    <div class="form-group">
+                        <select class="form-control" id="tarvike" name="tarvikeNimi" ng-model="tarvikeForm.nimi" required="">
+                            <option ng-repeat="tarvike in tarvikkeet track by $index" value="{{tarvike[1]}}">{{tarvike[1]}} (jäljellä: {{tarvike[4]}})</option>
+                        </select>
+                        <div ng-show="tarvike_form.$submitted">
+                            <span style="color:red" ng-show="tarvike_form.tarvikeNimi.$error.required">Valitse tarvike</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="maara">Määrä</label>
+                        <input type="number" step="0.1" id="maara" name="tarvikeMaara" ng-model="tarvikeForm.maara" required="">
+                        <div ng-show="tarvike_form.$submitted || tarvike_form.tarvikeMaara.$touched">
+                            <span style="color:red" ng-show="tarvike_form.tarvikeMaara.$error.required">Valitse määrä</span>
+                            <span style="color:red">{{tarvikeFormErrorMaara}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tarvikeAlennus">Alennus</label>
+                        <input type="number" min="0" max="100" step="1" id="tarvikeAlennus" name="tarvikeAlennus" ng-model="tarvikeForm.alennus" required="">
+                        <div ng-show="tarvike_form.$submitted || tarvike_form.tarvikeAlennus.$touched">
+                            <span style="color:red" ng-show="tarvike_form.tarvikeAlennus.$error.required">Valitse alennus</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Lisää tarvike</button>
+                    <p style="color:blue">{{tarvikeFormMessage}}</p>
+                </form>
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid #d9dbd9;" class="row">
+            <div class="col-md-12">
+                <h3>Laskut</h3>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Laskunro</th>
+                        <th>Summa €</th>
+                        <th>Laskutuslisä €</th>
+                        <th>Viivästyskorko €</th>
+                        <th>Eräpäivä</th>
+                        <th>Maksupvm</th>
+                        <th>Mones muistutus</th>
+                        <th>Edellinen lasku</th>
+                    </tr>
+                    <tr ng-repeat="row in laskut | formatEmptyItems2d track by $index">
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+                        <td>{{row[2]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[4]}}</td>
+                        <td>{{row[5]}}</td>
+                        <td>{{row[6]}}</td>
+                        <td>{{row[7]}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

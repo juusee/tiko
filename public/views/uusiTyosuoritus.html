@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-md-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/tikoAngular/tyosuoritukset">Työsuoritukset</a></li>
+            <li role="presentation"><a href="/tikoAngular/laskut">Laskut</a></li>
+            <li role="presentation" class="active"><a href="/tikoAngular/uusiTyosuoritus">Uusi työsuoritus</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiAsiakas">Uusi asiakas</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiLasku">Uusi lasku</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-10">
+        <form ng-submit="submitTyosuoritusForm()" name="uusi_tyosuoritus_form" novalidate>
+            <div class="form-group">
+                <label for="tila">Tila</label>
+                <select class="form-control" id="tila" name="tsTila" ng-model="uusiTyosuoritusForm.tila" required="">
+                    <option value="tuntityo_kesken" selected="selected">Tuntityö kesken</option>
+                    <option value="hinta_arvio">Hinta-arvio</option>
+                    <option value="urakkatarjous">Urakkatarjous</option>
+                </select>
+                <div ng-show="uusi_tyosuoritus_form.$submitted || uusi_tyosuoritus_form.tsTila.$touched">
+                    <span style="color:red" ng-show="uusi_tyosuoritus_form.tsTila.$error.required">Valitse tila</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="kaupunki">Kaupunki</label>
+                <input type="text" class="form-control" id="kaupunki" name="tsKaupunki" ng-model="uusiTyosuoritusForm.kaupunki" required="">
+                <div ng-show="uusi_tyosuoritus_form.$submitted || uusi_tyosuoritus_form.tsKaupunki.$touched">
+                    <span style="color:red" ng-show="uusi_tyosuoritus_form.tsKaupunki.$error.required">Valitse kaupunki</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="postinumero">Postinumero</label>
+                <input type="text" class="form-control" id="postinumero" name="tsPostinumero" ng-model="uusiTyosuoritusForm.postinumero" required="">
+                <div ng-show="uusi_tyosuoritus_form.$submitted || uusi_tyosuoritus_form.tsPostinumero.$touched">
+                    <span style="color:red" ng-show="uusi_tyosuoritus_form.tsPostinumero.$error.required">Valitse postinumero</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="katuosoite">Katuosoite</label>
+                <input type="text" class="form-control" id="katuosoite" name="tsKatuosoite" ng-model="uusiTyosuoritusForm.katuosoite" required="">
+                <div ng-show="uusi_tyosuoritus_form.$submitted || uusi_tyosuoritus_form.tsKatuosoite.$touched">
+                    <span style="color:red" ng-show="uusi_tyosuoritus_form.tsKatuosoite.$error.required">Valitse katuosoite</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tyyppi">Tyyppi:</label>
+                <select class="form-control" id="tyyppi" name="tsTyyppi" ng-model="uusiTyosuoritusForm.tyyppi" required="">
+                    <option value="omakotitalo" selected="selected">Omakotitalo</option>
+                    <option value="kerrostalo">Kerrostalo</option>
+                </select>
+                <div ng-show="uusi_tyosuoritus_form.$submitted || uusi_tyosuoritus_form.tsTyyppi.$touched">
+                    <span style="color:red" ng-show="uusi_tyosuoritus_form.tsTyyppi.$error.required">Valitse tyyppi</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="anro">Asiakas:</label>
+                <select class="form-control" id="anro" name="tsAnro" ng-model="uusiTyosuoritusForm.anro" required="">
+                    <option ng-repeat="asiakas in asiakkaat track by $index" value="{{asiakas[0]}}">{{asiakas[1]}} {{asiakas[2]}}</option>
+                </select>
+                <div ng-show="uusi_tyosuoritus_form.$submitted || uusi_tyosuoritus_form.tsAnro.$touched">
+                    <span style="color:red" ng-show="uusi_tyosuoritus_form.tsAnro.$error.required">Valitse asiakas</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">Luo urakkatarjous</button>
+            <p style="color:blue">{{uusiTyosuoritusFormMessage}}</p>
+        </form>
+    </div>
+</div>

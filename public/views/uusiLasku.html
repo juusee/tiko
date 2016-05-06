@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/tikoAngular/tyosuoritukset">Työsuoritukset</a></li>
+            <li role="presentation"><a href="/tikoAngular/laskut">Laskut</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiTyosuoritus">Uusi työsuoritus</a></li>
+            <li role="presentation"><a href="/tikoAngular/uusiAsiakas">Uusi asiakas</a></li>
+            <li role="presentation" class="active"><a href="/tikoAngular/uusiLasku">Uusi lasku</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-10">
+        <form ng-submit="submitLaskuForm()" name="uusi_lasku_form" novalidate>
+            <div class="form-group">
+                <label for="tsnro">Tyosuoritus:</label>
+                <select class="form-control" id="tsnro" name="lTsnro" ng-model="uusiLaskuForm.tsnro" required="">
+                    <option ng-repeat="tyosuoritus in tyosuoritukset track by $index" value="{{tyosuoritus[0]}}">Asiakasnumero: {{tyosuoritus[8]}} - osoite: {{tyosuoritus[4]}} {{tyosuoritus[3]}}, {{tyosuoritus[5]}} - hinta: {{tyosuoritus[2]}}</option>
+                </select>
+                <div ng-show="uusi_lasku_form.$submitted || uusi_lasku_form.lTsnro.$touched">
+                    <span style="color:red" ng-show="uusi_lasku_form.lTsnro.$error.required">Valitse työsuoritus</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="kokonaissumma">Summa</label>
+                <input type="number" min="0" class="form-control" id="kokonaissumma" name="lKokonaissumma" ng-model="uusiLaskuForm.kokonaissumma" required="">
+                <div ng-show="uusi_lasku_form.$submitted || uusi_lasku_form.lKokonaissumma.$touched">
+                    <span style="color:red" ng-show="uusi_lasku_form.lKokonaissumma.$error.required">Valitse summa</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="erapaiva">Eräpäivä</label>
+                <input type="date" class="form-control" id="erapaiva" name="lErapaiva" ng-model="uusiLaskuForm.erapaiva" required="">
+                <div ng-show="uusi_lasku_form.$submitted || uusi_lasku_form.lErapaiva.$touched">
+                    <span style="color:red" ng-show="uusi_lasku_form.lErapaiva.$error.required">Valitse eräpäivä</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">Luo lasku</button>
+            <p style="color:blue">{{uusiLaskuFormMessage}}</p>
+        </form>
+    </div>
+</div>
